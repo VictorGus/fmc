@@ -9,11 +9,6 @@
         route-map                      {:mvn/version "0.0.7-RC4"}
         ring                           {:mvn/version "1.7.1"}
         ring/ring-defaults             {:mvn/version "0.3.2"}
-
-        morse                          {:mvn/version "0.4.3"}
-        org.clojure/tools.logging {:mvn/version "0.5.0"}
-        org.slf4j/slf4j-simple {:mvn/version "1.7.28"}
-
         org.clojure/java.jdbc          {:mvn/version "0.7.9"}
         com.zaxxer/HikariCP            {:mvn/version "3.3.1"}
         org.postgresql/postgresql      {:mvn/version "42.2.5.jre7"}
@@ -22,7 +17,6 @@
 
         zprint {:mvn/version "0.4.16"}
 
-        ;; support for java 11+
         org.clojure/core.rrb-vector               {:mvn/version "0.0.14"}
 
         }
