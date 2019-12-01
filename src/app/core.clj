@@ -4,18 +4,12 @@
             [app.auth])
   (:use org.httpkit.server))
 
-(defn request-semantic! [{url :url opts :opts body :body :as ctx}]
-  @(http/get url opts))
-
-(defn initialize-semantic! []
-  (request-semantic {:url "" :method :GET :request-body ""}))
-
 (defn client-info-handler [req]
   {:status "200"
-   :headers {"Content-Type" "application/json"}
-   :body (:query-string req)})
+   :headers {"Content-Type" "text/html"}
+   :body (:uid (:route-params req))})
 
-(defn auth-handler [req]
+(defn signup-handler [req]
   {:status "200"
    :headers {"Content-Type" "application/jsom"}
    :body req})
@@ -24,8 +18,8 @@
   )
 
 (def routes
-  {:GET #'auth-handler
-   "info" {:POST #'client-info-handler}
+  {:GET #'signup-handler
+   "info" {[:uid] {:GET #'client-info-handler}}
    "diag" {:GET #'get-diagnosis}})
 
 (defn dispatch [{meth :request-method uri :uri :as req}]

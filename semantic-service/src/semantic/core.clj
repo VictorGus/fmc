@@ -32,6 +32,12 @@
   (q/run graph '[:bgp [:semantic.core/sepsis :foaf/temperature ?person]
                  [?person :foaf/name ?name]]))
 
+(defn request-semantic! [{url :url opts :opts body :body :as ctx}]
+  @(http/get url opts))
+
+(defn initialize-semantic! []
+  (request-semantic! {:url "" :method :GET :request-body ""}))
+
 (defn get-diagnosis [req]
   (if-let [diag (ask-sparql {})]
     {:status 200
