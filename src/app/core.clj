@@ -5,6 +5,7 @@
   (:use org.httpkit.server))
 
 (defn client-info-handler [req]
+  (request-semantic! "http://localhost:5556/")
   {:status "200"
    :headers {"Content-Type" "text/html"}
    :body (:uid (:route-params req))})
@@ -19,7 +20,7 @@
 
 (def routes
   {:GET #'signup-handler
-   "info" {[:uid] {:GET #'client-info-handler}}
+   "info" {:GET #'client-info-handler}
    "diag" {:GET #'get-diagnosis}})
 
 (defn dispatch [{meth :request-method uri :uri :as req}]

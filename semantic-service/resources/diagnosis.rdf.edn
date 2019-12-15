@@ -1,0 +1,8 @@
+[#rdf/prefix [:ex "http://example.com/"]
+ {:rdf/about :ex/sympthoms
+  :foaf/temperature "> 39"
+  :foaf/blood-pressure "< 110"
+  :foaf/heart-rate "> 100"
+  :foaf/associated-with _sepsis}
+ {:rdf/about _sepsis
+  :foaf/diagnosis "Sepsis"}]

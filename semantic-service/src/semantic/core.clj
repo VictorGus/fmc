@@ -3,6 +3,7 @@
             [arachne.aristotle.query :as q]
             [arachne.aristotle.registry :as r]
             [arachne.aristotle.graph :as g]
+            [clojure.java.io :as io]
             [route-map.core :as rm])
   (:use org.httpkit.server))
 
@@ -11,6 +12,16 @@
 (defn init! []
   (r/prefix 'foaf "http://xmlns.com/foaf/0.1/")
   (r/prefix 'semantic.core "http://arachne-framework.org/example#")
+  true)
+
+(defn ask-sparql [{:keys [temperature blood-pressure heart-rate] :as params}]
+  (let [g (aa/read (aa/graph :jena-mini) (io/resource "diagnosis.rdf.edn"))]
+    (q/run g '[?name]
+      '[:bgp
+        ["<http://example.com/sympthoms>" :foaf/associated-with ?diagnosis]
+        [?diagnosis :foaf/diagnosis ?name]])))
+
+(comment
   (g/triples {:rdf/about ::diagnosis
               :foaf/symptoms [{:rdf/about ::temperature
                                :foaf/value "> 39"}]})
@@ -20,20 +31,15 @@
                  :foaf/symptoms [{:foaf/temperature ">= 39"
                                   :foaf/heart-rate "> 90"
                                   :foaf/blood-pressure "< 110"}]})
-  true)
 
-(defn ask-sparql [{:keys [temperature age blood-pressure heart-rate other] :as params}]
-  (q/run graph '[:bgp [:semantic.core/sepsis :foaf/temperature ?person]
-                 [?person :foaf/name ?name]]))
-
-(comment
   (g/triple [::sepsis :foaf/diagnosis "Sepsis"])
 
-  (q/run graph '[:bgp [:semantic.core/sepsis :foaf/temperature ?person]
-                 [?person :foaf/name ?name]]))
+  (aa/read (aa/graph :simple) (io/resource "diagnosis.rdf.edn"))
+
+  )
 
 (defn request-semantic! [{url :url opts :opts body :body :as ctx}]
-  @(http/get url opts))
+  @(get url opts))
 
 (defn initialize-semantic! []
   (request-semantic! {:url "" :method :GET :request-body ""}))
