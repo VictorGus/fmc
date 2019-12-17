@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      window.onload = function() {
+        document.getElementById('loading-div').style.display = 'none';
+      };
+    </script>
+    <style>
+     .lds-ellipsis {
+       display: inline-block;
+       position: relative;
+       width: 150px;
+       height: 150px;
+     }
+     .lds-ellipsis div {
+       position: absolute;
+       top: 33px;
+       width: 16px;
+       height: 16px;
+       border-radius: 50%;
+       background-color: green;
+       animation-timing-function: cubic-bezier(0, 1, 1, 0);
+     }
+     .lds-ellipsis div:nth-child(1) {
+       left: 8px;
+       animation: lds-ellipsis1 0.6s infinite;
+     }
+     .lds-ellipsis div:nth-child(2) {
+       left: 8px;
+       animation: lds-ellipsis2 0.6s infinite;
+     }
+     .lds-ellipsis div:nth-child(3) {
+       left: 32px;
+       animation: lds-ellipsis2 0.6s infinite;
+     }
+     .lds-ellipsis div:nth-child(4) {
+       left: 56px;
+       animation: lds-ellipsis3 0.6s infinite;
+     }
+     @keyframes lds-ellipsis1 {
+       0% {
+         transform: scale(0);
+       }
+       100% {
+         transform: scale(1);
+       }
+     }
+     @keyframes lds-ellipsis3 {
+       0% {
+         transform: scale(1);
+       }
+       100% {
+         transform: scale(0);
+       }
+     }
+     @keyframes lds-ellipsis2 {
+       0% {
+         transform: translate(0, 0);
+       }
+       100% {
+         transform: translate(24px, 0);
+       }
+     }
+     .lds-ellipsis {
+       position: absolute;
+       width: 300px;
+       height: 200px;
+       z-index: 15;
+       top: 50%;
+       left: 55%;
+       margin: -100px 0 0 -150px;
+     }
+    </style>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <div id="app">
+    </div>
+    <div id="loading-div" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    <script src="app.js" type="text/javascript"></script>
+  </body>
+</html>

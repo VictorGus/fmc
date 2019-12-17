@@ -6,6 +6,11 @@
             [ajax.core :refer [GET POST]]
             [app.styles :as styles]))
 
+(rf/reg-sub
+ :form-data
+ (fn [db _]
+   ))
+
 (rf/register-handler
  :send-data
  (fn [db _]
@@ -44,7 +49,7 @@
         [blood-pressure-input blood-pressure]
         [heart-rate-input heart-rate]
         [:input.btn {:type "Submit"
-                     :on-click #(rf/dispatch [:send-data])
+                     :on-click #(rf/dispatch [:form-data])
                      :style {:box-sizing "border-box"
                              :-webkit-box-sizing "border-box"
                              :-moz-box-sizing "border-box"

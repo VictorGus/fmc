@@ -14,7 +14,7 @@
   (r/prefix 'semantic.core "http://arachne-framework.org/example#")
   true)
 
-(defn ask-sparql [{:keys [temperature blood-pressure heart-rate] :as params}]
+(defn ask-jena [{:keys [temperature blood-pressure heart-rate] :as params}]
   (let [g (aa/read (aa/graph :jena-mini) (io/resource "diagnosis.rdf.edn"))]
     (q/run g '[?name]
       '[:bgp
@@ -22,6 +22,10 @@
         [?diagnosis :foaf/diagnosis ?name]])))
 
 (comment
+  (init!)
+
+  (first (ask-jena {}))
+
   (g/triples {:rdf/about ::diagnosis
               :foaf/symptoms [{:rdf/about ::temperature
                                :foaf/value "> 39"}]})
@@ -45,11 +49,11 @@
   (request-semantic! {:url "" :method :GET :request-body ""}))
 
 (defn get-diagnosis [req]
-  (if-let [diag (ask-sparql {})]
+  (if-let [diag (ask-jena {})]
     {:status 200
      :headers {"Content-Type" "application/json"}
      :body {:message "Data has been received successfully"
-            :diagnosis diagnosis}}
+            :diagnosis diag}}
     {:status 400
      :headers {"Content-Type" "application/json"}
      :body {:message "There is no such diagnosis"}}))
