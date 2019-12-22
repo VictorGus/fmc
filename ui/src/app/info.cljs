@@ -6,15 +6,12 @@
             [ajax.core :refer [GET POST]]
             [app.styles :as styles]))
 
-(rf/reg-sub
- :form-data
- (fn [db _]
-   ))
-
 (rf/register-handler
  :send-data
  (fn [db _]
-   (POST "http://localhost:5555/info")))
+   (if-let [diagnosis (POST "http://localhost:5555/info")]
+     (js/alert (str "You have " diagnosis))
+     (js/alert (str "Unable to determine your diagnosis")))))
 
 (def defaults {:temperature "Enter your current temperature"
                 :blood-pressure "Enter your current blood pressure"
@@ -49,7 +46,7 @@
         [blood-pressure-input blood-pressure]
         [heart-rate-input heart-rate]
         [:input.btn {:type "Submit"
-                     :on-click #(rf/dispatch [:form-data])
+                     :on-click #(rf/dispatch [:send-data])
                      :style {:box-sizing "border-box"
                              :-webkit-box-sizing "border-box"
                              :-moz-box-sizing "border-box"
