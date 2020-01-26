@@ -14,12 +14,8 @@
         org.postgresql/postgresql      {:mvn/version "42.2.5.jre7"}
         honeysql                       {:mvn/version "0.9.4"}
         funcool/promesa {:mvn/version "3.0.0"}
-
         zprint {:mvn/version "0.4.16"}
-
-        org.clojure/core.rrb-vector               {:mvn/version "0.0.14"}
-
-        }
+        org.clojure/core.rrb-vector               {:mvn/version "0.0.14"}}
  :aliases
  {:nrepl
   {:extra-paths ["dev" "ui/build.dev" "test"]
